@@ -1,3 +1,5 @@
+![ucs-tools](assets/banner.png)
+
 # ucs-tools
 
 A small, format-only command-line toolkit and Python library for the
