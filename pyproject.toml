@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ucs-tools"
+version = "0.1.0"
+description = "A format-only command-line toolkit and library for the Universal Category System (UCS) sound-effects filenames."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "J Murphy Ryan" }]
+keywords = ["ucs", "universal-category-system", "sound-effects", "sfx", "filename", "post-production", "audio", "metadata"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/jmrsound/ucs-tools"
+Repository = "https://github.com/jmrsound/ucs-tools"
+Issues = "https://github.com/jmrsound/ucs-tools/issues"
+
+[project.scripts]
+ucs = "ucs_tools.cli:main"
+
+[project.optional-dependencies]
+dev = ["ruff>=0.6", "pytest>=8.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ucs_tools"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
