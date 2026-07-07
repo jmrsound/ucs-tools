@@ -8,16 +8,16 @@ this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 - Bundled official UCS v8.2.1 category list (753 subcategories, 82 categories),
   English columns, cited as public domain.
-- `ucs parse` — parse a UCS filename into its blocks (CatID, FXName, CreatorID,
+- `ucs parse`: parse a UCS filename into its blocks (CatID, FXName, CreatorID,
   SourceID, and the optional UserCategory / VendorCategory / UserData).
-- `ucs compose` — build a compliant filename from parts, with round-trip safety
+- `ucs compose`: build a compliant filename from parts, with round-trip safety
   checks.
-- `ucs validate` — validate a file or a whole folder tree; reports CatID-valid
+- `ucs validate`: validate a file or a whole folder tree; reports CatID-valid
   (the hard requirement) versus full four-block compliance, with a summary and a
   non-zero exit code when anything fails.
-- `ucs lookup` — CatID to Category/SubCategory (and the reverse), with the
+- `ucs lookup`: CatID to Category/SubCategory (and the reverse), with the
   official explanation and synonyms.
-- `ucs rename` — dry-run by default, `--apply` to execute, always writes an undo
+- `ucs rename`: dry-run by default, `--apply` to execute, always writes an undo
   manifest, never touches audio bytes. Rules: `--fix-case` (correct a CatID's
   case to match the list) and `--set-catid` (prepend a user-supplied CatID).
 - Importable as a library (`ucs_tools.parse`, `ucs_tools.compose`,
