@@ -1,4 +1,4 @@
-![ucs-tools](assets/banner.png)
+![ucs-tools](https://raw.githubusercontent.com/jmrsound/ucs-tools/main/assets/banner.png)
 
 # ucs-tools
 
