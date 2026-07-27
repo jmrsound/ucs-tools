@@ -204,3 +204,7 @@ endorsed by the UCS project. Built by J Murphy Ryan, post audio.
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+The bundled UCS category list is public domain and is not covered by that
+licence — see [NOTICE](NOTICE) for attribution and
+[`src/ucs_tools/data/PROVENANCE.md`](src/ucs_tools/data/PROVENANCE.md) for sourcing.

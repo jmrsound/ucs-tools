@@ -1,0 +1,11 @@
+ucs-tools
+Copyright (c) 2026 J. Murphy Ryan
+
+This product bundles the Universal Category System (UCS) v8.2.1 English
+category list at src/ucs_tools/data/ucs_v8.2.1.csv.
+
+UCS is a public-domain initiative created by Tim Nielsen and Justin Drury.
+It is not owned by this project and is included unmodified.
+
+Full provenance, versioning and sourcing details for the bundled list:
+src/ucs_tools/data/PROVENANCE.md
