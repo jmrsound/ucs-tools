@@ -27,13 +27,21 @@ entirely against it.
 ## Install
 
 ```bash
-pip install ucs-tools
-# or:
-uvx ucs-tools
+pip install git+https://github.com/jmrsound/ucs-tools
 ```
 
-This installs the `ucs` command and the importable `ucs_tools` package. No
-dependencies beyond the standard library.
+Or from a checkout, which is the better route if you want to run the tests:
+
+```bash
+git clone https://github.com/jmrsound/ucs-tools
+cd ucs-tools
+pip install -e .
+```
+
+Either way you get the `ucs` command and the importable `ucs_tools` package. No
+dependencies beyond the standard library. Python 3.11 or newer.
+
+Not on PyPI yet.
 
 ## Commands
 
