@@ -1,20 +1,87 @@
+/* ===========================================================================
+   UCS Tagger — design tokens + surface
+   Surface: https://murphyryan.com/ucs-tagger/  ·  source: jmrsound/ucs-tools
+   Namespace: --ucs-*
+   Ported from Claude Design handoff DH #604 (sound-projects/ucs-tagger/v2),
+   files "UCS Tagger.dc.html" + "ucs-tagger-tokens.css" + "UCS-TAGGER-DESIGN.md".
+
+   Authority: inherits the personalbrand token family (--jmr-*) for ground and
+   accent so the tool reads as a sibling of jmryansound.com. Diverges in ONE
+   place, deliberately: interface type is a sans, not Newsreader. The portfolio
+   uses a serif because a person is talking; this is an instrument, so the
+   interface voice is IBM Plex Sans and the machine voice stays IBM Plex Mono.
+   =========================================================================== */
+
 :root {
-  --ink: #e8edf3;
-  --muted: #8e9aaa;
-  --faint: #637083;
-  --bg: #0b0f14;
-  --panel: #111720;
-  --panel-2: #171f2a;
-  --line: #26303d;
-  --line-strong: #374352;
-  --accent: #f1a32a;
-  --accent-soft: rgba(241, 163, 42, 0.13);
-  --accent-line: rgba(241, 163, 42, 0.42);
-  --green: #7fcfa4;
-  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  /* --- Ground: warm near-black. Post rooms are dark; this one is warm-dark,
+         not the blue-black "tech" wash. The brief asked for steel-blue-gray
+         borders — resolved warm instead, because the product family bans blue.
+         Steel here means neutral and cold in VALUE, not in hue. ------------ */
+  --ucs-bg: #121211;
+  --ucs-surface: #171614;
+  --ucs-panel: #1c1a18;
+  --ucs-field: #131211;
+  --ucs-row-sel: #1f1b15;
+
+  /* --- Rules. Borders do the structural work; there are no shadows in the
+         build except the single one that sells the query panel's lift. ---- */
+  --ucs-line: #2b2926;
+  --ucs-line-soft: #211f1d;
+  --ucs-line-strong: #46413b;
+  --ucs-lift: 0 -1px 0 rgba(0, 0, 0, 0.5), 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+
+  /* --- Ink ------------------------------------------------------------- */
+  --ucs-text: #ede8de;
+  --ucs-text-2: #d6d0c6;
+  --ucs-text-3: #c7c0b5;
+  --ucs-muted: #9c958a;
+  --ucs-inactive: #3a3733;
+
+  /* --- Accent: ONE. Sodium amber, the lamp on a tape machine. It ranks
+         exactly four things: the active action, the CatID, focus, and the
+         selected row / matched evidence value. Never a fill behind body text.
+         The only gradient permitted on this surface is the low-delta amber
+         family on the Find button — one functional element. --------------- */
+  --ucs-accent: #d98a3e;
+  --ucs-accent-hi: #e39b52;
+  --ucs-accent-lo: #c97a2f;
+  --ucs-accent-ink: #171205;
+  --ucs-focus: 0 0 0 2px #121211, 0 0 0 4px #d98a3e;
+
+  /* --- Status: one restrained desaturated green, reserved for catalog
+         loaded / running local. Nothing else may use it. ------------------ */
+  --ucs-ok: #7e9a6b;
+  --ucs-ok-dim: #46543c;
+
+  /* --- Type: two roles only. Sans for interface and prose, mono for CatIDs,
+         rank, keyboard instructions, labels, and runtime facts. ----------- */
+  --ucs-font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ucs-font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", "SFMono-Regular", Consolas, monospace;
+
+  --ucs-size-h1: clamp(34px, 4.2vw, 52px);
+  --ucs-size-catid: clamp(38px, 5.4vw, 60px);
+  --ucs-size-path: clamp(21px, 2.1vw, 27px);
+
+  --ucs-track-label: 0.16em;
+
+  /* --- Space: 4pt base. One layout serves 390 and 1440; clamps, not
+         breakpoints, except the single workspace column switch. ----------- */
+  --ucs-gutter: clamp(16px, 3.4vw, 40px);
+  --ucs-pad: clamp(16px, 2vw, 22px);
+  --ucs-measure: 1180px;
+  --ucs-tuck: 28px;
+
+  /* --- Shape: near-square. 4px maximum. Pills are banned. ---------------- */
+  --ucs-radius: 4px;
+  --ucs-radius-sm: 2px;
+
+  /* --- Texture: registration hairlines, 3.5% ink, 96px pitch. It must never
+         be legible next to text. ----------------------------------------- */
+  --ucs-grid-ink: rgba(155, 148, 138, 0.035);
+  --ucs-grid-pitch: 96px;
 }
+
+/* --- Base ---------------------------------------------------------------- */
 
 * {
   box-sizing: border-box;
@@ -22,559 +89,912 @@
 
 html {
   min-width: 320px;
-  background: var(--bg);
   color-scheme: dark;
+  background: var(--ucs-bg);
 }
 
 body {
-  min-height: 100vh;
   margin: 0;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.023) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.023) 1px, transparent 1px),
-    radial-gradient(circle at 50% -12%, rgba(241, 163, 42, 0.09), transparent 34rem),
-    var(--bg);
-  background-size: 72px 72px, 72px 72px, auto, auto;
-  color: var(--ink);
-  font-family: var(--sans);
+  background: var(--ucs-bg);
   -webkit-font-smoothing: antialiased;
 }
 
-button,
-textarea {
-  font: inherit;
-}
-
+input,
+select,
+textarea,
 button {
+  font: inherit;
   color: inherit;
 }
 
-::selection {
-  background: var(--accent);
-  color: #171006;
-}
-
-.shell {
-  width: min(1160px, calc(100% - 40px));
-  margin: 0 auto;
-  padding: 28px 0 48px;
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 44px;
-  margin-bottom: 74px;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--ink);
-  font-family: var(--mono);
-  font-size: 14px;
-  font-weight: 650;
-  letter-spacing: 0.04em;
-}
-
-.brand-mark {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border: 1px solid var(--accent);
-  border-radius: 7px;
-  color: var(--accent);
-  font-size: 16px;
-}
-
-.catalog-state {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.state-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 99px;
-  background: var(--green);
-  box-shadow: 0 0 0 4px rgba(127, 207, 164, 0.1);
-}
-
-.hero {
-  max-width: 850px;
-  margin-bottom: 42px;
-}
-
-.eyebrow {
-  margin: 0 0 16px;
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-h1 {
-  max-width: 790px;
-  margin: 0;
-  font-size: clamp(42px, 7vw, 82px);
-  font-weight: 560;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-}
-
-.hero-copy {
-  max-width: 670px;
-  margin: 26px 0 0;
-  color: #a9b4c2;
-  font-size: clamp(17px, 2vw, 21px);
-  line-height: 1.55;
-}
-
-.finder {
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: rgba(13, 18, 25, 0.91);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
-  overflow: hidden;
-}
-
-.query-panel {
-  padding: 26px;
-  border-bottom: 1px solid var(--line);
-}
-
-.query-label-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 13px;
-}
-
-.query-label {
-  color: var(--ink);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.075em;
-  text-transform: uppercase;
-}
-
-.shortcut {
-  color: var(--faint);
-  font-family: var(--mono);
-  font-size: 11px;
-}
-
-.query-box {
-  position: relative;
-}
-
-.query-box textarea {
-  display: block;
-  width: 100%;
-  min-height: 138px;
+textarea {
   resize: vertical;
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  outline: 0;
-  background: #0d1219;
-  color: var(--ink);
-  padding: 20px 150px 20px 20px;
-  font-size: clamp(18px, 2.4vw, 24px);
-  line-height: 1.42;
-  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
-.query-box textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+::selection {
+  background: var(--ucs-accent);
+  color: var(--ucs-bg);
 }
 
-.query-box textarea::placeholder {
-  color: #536071;
+:focus-visible {
+  outline: none;
+  border-radius: var(--ucs-radius-sm);
+  box-shadow: var(--ucs-focus);
 }
 
-.find-button {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  min-width: 118px;
-  border: 1px solid #ffc361;
-  border-radius: 9px;
-  background: var(--accent);
-  color: #1c1306;
-  padding: 12px 16px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 780;
-  letter-spacing: 0.04em;
-  transition: transform 120ms ease, background 120ms ease;
-}
+/* --- Page ---------------------------------------------------------------- */
 
-.find-button:hover {
-  background: #ffb23c;
-  transform: translateY(-1px);
-}
-
-.find-button:active {
-  transform: translateY(0);
-}
-
-.find-button:disabled {
-  cursor: not-allowed;
-  filter: grayscale(0.8);
-  opacity: 0.5;
-  transform: none;
-}
-
-.examples {
+.ucs-page {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 15px;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--ucs-bg);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--ucs-grid-ink) 0 1px,
+    transparent 1px var(--ucs-grid-pitch)
+  );
+  color: var(--ucs-text);
+  font-family: var(--ucs-font-sans);
+  font-size: 16px;
+  line-height: 1.55;
 }
 
-.examples-label {
-  margin-right: 3px;
-  color: var(--faint);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.example-chip,
-.copy-button {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.example-chip {
-  padding: 7px 11px;
-  font-size: 12px;
-}
-
-.example-chip:hover,
-.example-chip:focus-visible,
-.copy-button:hover,
-.copy-button:focus-visible {
-  border-color: var(--accent-line);
-  color: var(--ink);
-  outline: 0;
-}
-
-.results {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.7fr);
-  min-height: 430px;
-}
-
-.primary-result {
-  padding: 31px 32px 34px;
-  border-right: 1px solid var(--line);
-}
-
-.section-label {
-  margin: 0 0 22px;
-  color: var(--faint);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.catid-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 13px;
-}
-
-.catid {
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: clamp(30px, 5vw, 49px);
-  font-weight: 650;
-  letter-spacing: -0.045em;
-}
-
-.copy-button {
-  padding: 7px 10px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.category-path {
-  margin: 0;
-  color: var(--ink);
-  font-size: clamp(20px, 2.7vw, 29px);
-  font-weight: 590;
-  letter-spacing: -0.02em;
-}
-
-.explanation {
-  max-width: 650px;
-  margin: 18px 0 0;
-  color: #9ba8b8;
-  font-size: 15px;
-  line-height: 1.65;
-}
-
-.reason-label {
-  margin: 30px 0 10px;
-  color: var(--faint);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.reasons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.reason {
-  border: 1px solid var(--accent-line);
-  border-radius: 6px;
-  background: var(--accent-soft);
-  color: #efbd6c;
-  padding: 7px 9px;
-  font-size: 12px;
-}
-
-.alternates {
-  padding: 31px 24px 28px;
-}
-
-.alternate-list {
-  display: grid;
-  gap: 9px;
-}
-
-.alternate {
+.ucs-measure {
   width: 100%;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background: transparent;
-  padding: 13px;
-  text-align: left;
-  cursor: pointer;
-  transition: border-color 120ms ease, background 120ms ease;
+  max-width: var(--ucs-measure);
+  margin: 0 auto;
 }
 
-.alternate:hover,
-.alternate:focus-visible {
-  border-color: var(--line-strong);
-  outline: 0;
-  background: var(--panel-2);
+/* --- Masthead ------------------------------------------------------------ */
+
+.ucs-masthead {
+  border-bottom: 1px solid var(--ucs-line);
 }
 
-.alternate-topline {
+.ucs-masthead-inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px 24px;
+  padding: 16px var(--ucs-gutter);
 }
 
-.alternate-catid {
-  color: #cad4df;
-  font-family: var(--mono);
+.ucs-wordmark {
+  color: var(--ucs-text);
+  font-family: var(--ucs-font-mono);
   font-size: 14px;
-  font-weight: 640;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
-.alternate-rank {
-  color: var(--faint);
-  font-family: var(--mono);
-  font-size: 10px;
-}
-
-.alternate-path {
-  margin-top: 5px;
-  color: var(--muted);
+.ucs-status {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--ucs-font-mono);
   font-size: 12px;
-  line-height: 1.4;
+  letter-spacing: 0.06em;
+  color: var(--ucs-muted);
 }
 
-.empty-state {
-  display: grid;
-  min-height: 350px;
-  grid-column: 1 / -1;
-  place-items: center;
-  padding: 40px;
-  color: var(--muted);
-  text-align: center;
-}
-
-.empty-state strong {
+.ucs-status-rule {
   display: block;
-  margin-bottom: 8px;
-  color: var(--ink);
-  font-size: 18px;
+  width: 1px;
+  height: 11px;
+  flex: none;
+  background: var(--ucs-inactive);
 }
 
-.skeleton {
+.ucs-status-local {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ucs-ok);
+}
+
+.ucs-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.ucs-status-error {
+  color: var(--ucs-accent);
+}
+
+.ucs-status-skeleton {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* --- Main ---------------------------------------------------------------- */
+
+.ucs-main {
+  flex: 1;
+  padding: clamp(30px, 4.4vw, 54px) var(--ucs-gutter) 0;
+}
+
+.ucs-intro {
   position: relative;
-  overflow: hidden;
-  border-radius: 7px;
-  background: #19212b;
+  z-index: 2;
 }
 
-.skeleton::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-  content: "";
-  animation: shimmer 1.25s infinite;
-  transform: translateX(-100%);
+.ucs-h1 {
+  max-width: 20ch;
+  margin: 0 0 12px;
+  font-size: var(--ucs-size-h1);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+  text-wrap: pretty;
 }
 
-.skeleton-results {
+.ucs-standfirst {
+  max-width: 62ch;
+  margin: 0 0 clamp(20px, 2.6vw, 28px);
+  color: var(--ucs-muted);
+  font-size: 16px;
+  text-wrap: pretty;
+}
+
+/* --- Query instrument: the one raised object, the build's only shadow ----- */
+
+.ucs-instrument {
+  margin: 0 clamp(0px, 2.2vw, 28px);
+  border: 1px solid var(--ucs-line);
+  border-radius: var(--ucs-radius);
+  background: var(--ucs-panel);
+  box-shadow: var(--ucs-lift);
+}
+
+.ucs-instrument-head {
+  padding: var(--ucs-pad) var(--ucs-pad) 0;
+}
+
+.ucs-label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--ucs-track-label);
+  text-transform: uppercase;
+}
+
+.ucs-query {
+  display: block;
+  width: 100%;
+  min-height: 96px;
+  padding: 14px 16px;
+  border: 1px solid var(--ucs-line);
+  border-radius: var(--ucs-radius);
+  background: var(--ucs-field);
+  color: var(--ucs-text);
+  font-family: var(--ucs-font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  transition: border-color 140ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.ucs-query::placeholder {
+  color: var(--ucs-muted);
+  opacity: 0.72;
+}
+
+.ucs-query:focus {
+  border-color: var(--ucs-accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(217, 138, 62, 0.1);
+}
+
+.ucs-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+  padding: 14px var(--ucs-pad) clamp(16px, 2vw, 20px);
+}
+
+.ucs-submit {
+  min-height: 48px;
+  padding: 13px 26px;
+  border-radius: var(--ucs-radius);
+  font-family: var(--ucs-font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: filter 120ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.ucs-submit:not(:disabled) {
+  border: 1px solid var(--ucs-accent-lo);
+  background: linear-gradient(180deg, var(--ucs-accent-hi) 0%, var(--ucs-accent-lo) 100%);
+  color: var(--ucs-accent-ink);
+  cursor: pointer;
+}
+
+.ucs-submit:not(:disabled):hover {
+  filter: brightness(1.07);
+}
+
+.ucs-submit:disabled {
+  border: 1px solid var(--ucs-line);
+  background: #1f1d1a;
+  color: var(--ucs-muted);
+  cursor: not-allowed;
+}
+
+.ucs-keys {
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.ucs-keys b {
+  color: var(--ucs-text);
+  font-weight: inherit;
+}
+
+.ucs-privacy {
+  margin-left: auto;
+  color: var(--ucs-muted);
+  font-size: 13px;
+}
+
+.ucs-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  padding: 12px var(--ucs-pad) 14px;
+  border-top: 1px solid var(--ucs-line-soft);
+}
+
+.ucs-examples-label {
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ucs-track-label);
+  text-transform: uppercase;
+}
+
+/* Text actions, not a farm of rounded marketing pills. The 44px target is on
+   the button; the rule stays tight to the text via the inner span. */
+.ucs-example {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--ucs-text-3);
+  cursor: pointer;
+  font-family: var(--ucs-font-sans);
+  font-size: 14px;
+  text-align: left;
+}
+
+.ucs-example > span {
+  border-bottom: 1px solid var(--ucs-line);
+  padding-bottom: 2px;
+  transition: border-color 120ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.ucs-example:hover,
+.ucs-example:focus-visible {
+  color: var(--ucs-accent);
+}
+
+.ucs-example:hover > span,
+.ucs-example:focus-visible > span {
+  border-bottom-color: var(--ucs-accent);
+}
+
+/* --- Decision workspace --------------------------------------------------
+   One surface with an internal rule, not two cards. It sits -28px under the
+   query instrument so its top border and both top corners pass BEHIND the
+   panel and reappear on either side: the build's one real depth relationship.
+   ------------------------------------------------------------------------ */
+
+.ucs-workspace {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--ucs-tuck));
+  border: 1px solid var(--ucs-line);
+  border-radius: var(--ucs-radius);
+  background: var(--ucs-surface);
+}
+
+.ucs-work {
   display: grid;
-  min-height: 430px;
-  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.7fr);
+  grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
 }
 
-.skeleton-main,
-.skeleton-side {
-  padding: 32px;
+.ucs-primary {
+  min-width: 0;
+  padding: calc(var(--ucs-tuck) + clamp(20px, 2.6vw, 32px)) clamp(18px, 2.4vw, 32px)
+    clamp(24px, 2.8vw, 34px);
 }
 
-.skeleton-main {
-  border-right: 1px solid var(--line);
+.ucs-aside {
+  min-width: 0;
+  border-left: 1px solid var(--ucs-line);
+  padding-top: var(--ucs-tuck);
 }
 
-.skeleton-line {
-  height: 14px;
-  margin-bottom: 16px;
+/* --- Primary result ------------------------------------------------------ */
+
+.ucs-lead-label {
+  margin: 0 0 clamp(14px, 1.6vw, 18px);
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  line-height: 1.55;
+  text-wrap: pretty;
 }
 
-.skeleton-line.big {
-  width: 48%;
-  height: 50px;
-  margin-top: 36px;
+.ucs-lead-label b {
+  color: var(--ucs-text);
+  font-weight: inherit;
 }
 
-.skeleton-line.medium {
-  width: 72%;
-  height: 26px;
+.ucs-catid-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-bottom: clamp(10px, 1.4vw, 14px);
 }
 
-.skeleton-line.short {
-  width: 33%;
+.ucs-catid {
+  color: var(--ucs-accent);
+  font-family: var(--ucs-font-mono);
+  font-size: var(--ucs-size-catid);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  word-break: break-word;
 }
 
-@keyframes shimmer {
-  to {
-    transform: translateX(100%);
+.ucs-copy {
+  min-height: 44px;
+  border: 1px solid var(--ucs-line-strong);
+  border-radius: var(--ucs-radius);
+  background: none;
+  color: var(--ucs-text-3);
+  padding: 10px 18px;
+  cursor: pointer;
+  font-family: var(--ucs-font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: border-color 120ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    color 120ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.ucs-copy:hover {
+  border-color: var(--ucs-accent);
+  color: var(--ucs-text);
+}
+
+.ucs-copy.is-copied,
+.ucs-copy.is-copied:hover {
+  border-color: var(--ucs-ok-dim);
+  color: var(--ucs-ok);
+}
+
+.ucs-path {
+  margin: 0 0 clamp(18px, 2.2vw, 24px);
+  font-size: var(--ucs-size-path);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-wrap: pretty;
+}
+
+.ucs-path i {
+  color: var(--ucs-muted);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.ucs-explain {
+  margin-bottom: clamp(20px, 2.4vw, 28px);
+  border-top: 1px solid var(--ucs-line-soft);
+  padding-top: clamp(16px, 1.8vw, 20px);
+}
+
+.ucs-explain-body {
+  max-width: 60ch;
+  min-height: 4.8em;
+  margin: 0;
+  color: var(--ucs-text-2);
+  font-size: 16px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* Labelled underneath so the official wording is never mistaken for our prose. */
+.ucs-explain-source {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 10px 0 0;
+  min-height: 1.55em;
+  color: var(--ucs-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.ucs-explain-source::before {
+  display: block;
+  width: 16px;
+  height: 1px;
+  flex: none;
+  background: var(--ucs-line-strong);
+  content: "";
+}
+
+/* --- Evidence: audit rows, not celebratory badges. Type whispers, value
+       speaks. The row is a recessed well — the language of a log line. ----- */
+
+.ucs-why-label {
+  margin: 0 0 12px;
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--ucs-track-label);
+  text-transform: uppercase;
+}
+
+.ucs-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ucs-reason {
+  display: grid;
+  grid-template-columns: minmax(96px, 120px) 1fr;
+  align-items: baseline;
+  gap: 3px 14px;
+  border: 1px solid var(--ucs-line-soft);
+  border-left: 2px solid var(--ucs-accent);
+  border-radius: var(--ucs-radius-sm);
+  background: var(--ucs-field);
+  padding: 8px 12px;
+}
+
+.ucs-reason-label {
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: var(--ucs-track-label);
+  line-height: 1.55;
+  text-transform: uppercase;
+}
+
+.ucs-reason-value {
+  color: var(--ucs-text);
+  font-family: var(--ucs-font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.ucs-reasons-note {
+  max-width: 56ch;
+  margin: 12px 0 0;
+  color: var(--ucs-muted);
+  font-size: 13px;
+}
+
+/* --- Non-result states in the primary column ----------------------------- */
+
+.ucs-state-label {
+  margin: 0 0 10px;
+  color: var(--ucs-accent);
+  font-family: var(--ucs-font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ucs-track-label);
+  text-transform: uppercase;
+}
+
+.ucs-state-label.is-quiet {
+  margin-bottom: 14px;
+  color: var(--ucs-muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.ucs-state-label.is-quiet b {
+  color: var(--ucs-text);
+  font-weight: inherit;
+}
+
+.ucs-state-head {
+  max-width: 36ch;
+  margin: 0 0 8px;
+  font-size: var(--ucs-size-path);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  text-wrap: pretty;
+}
+
+.ucs-state-copy {
+  max-width: 54ch;
+  margin: 0 0 20px;
+  color: var(--ucs-muted);
+  font-size: 16px;
+  text-wrap: pretty;
+}
+
+.ucs-state-copy.is-error {
+  max-width: 52ch;
+  margin-bottom: 24px;
+}
+
+.ucs-state-copy em {
+  color: var(--ucs-text-3);
+  font-style: normal;
+}
+
+.ucs-retry {
+  min-height: 48px;
+  border: 1px solid var(--ucs-accent-lo);
+  border-radius: var(--ucs-radius);
+  background: linear-gradient(180deg, var(--ucs-accent-hi) 0%, var(--ucs-accent-lo) 100%);
+  color: var(--ucs-accent-ink);
+  padding: 13px 26px;
+  cursor: pointer;
+  font-family: var(--ucs-font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: filter 120ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.ucs-retry:hover {
+  filter: brightness(1.07);
+}
+
+/* Source / Action / Material / Setting — four ruled rows, no icons. */
+.ucs-prompts {
+  margin: 0;
+  border-top: 1px solid var(--ucs-line-soft);
+  padding: 0;
+  list-style: none;
+}
+
+.ucs-prompt {
+  display: grid;
+  grid-template-columns: minmax(74px, 90px) 1fr;
+  align-items: baseline;
+  gap: 4px 16px;
+  border-bottom: 1px solid var(--ucs-line-soft);
+  padding: 11px 2px;
+}
+
+.ucs-prompt-label {
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--ucs-track-label);
+  text-transform: uppercase;
+}
+
+.ucs-prompt-hint {
+  color: var(--ucs-text-3);
+  font-size: 15px;
+}
+
+/* --- Alternatives -------------------------------------------------------- */
+
+.ucs-aside-head {
+  padding: clamp(20px, 2.6vw, 32px) clamp(18px, 2vw, 22px) 14px;
+}
+
+.ucs-aside-title {
+  margin: 0 0 4px;
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--ucs-track-label);
+  text-transform: uppercase;
+}
+
+.ucs-aside-note {
+  margin: 0;
+  color: var(--ucs-muted);
+  font-size: 13px;
+  text-wrap: pretty;
+}
+
+.ucs-alts {
+  margin: 0;
+  border-top: 1px solid var(--ucs-line-soft);
+  padding: 0;
+  list-style: none;
+}
+
+.ucs-alt {
+  display: grid;
+  width: 100%;
+  min-height: 64px;
+  grid-template-columns: 26px 92px 1fr;
+  align-items: center;
+  gap: 3px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--ucs-line-soft);
+  border-left: 2px solid transparent;
+  background: transparent;
+  padding: 13px 18px;
+  cursor: pointer;
+  font-family: var(--ucs-font-sans);
+  text-align: left;
+  transition: background 120ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.ucs-alt:hover {
+  background: #1b1a17;
+}
+
+/* Selection never depends on colour alone: amber bar + amber rank + amber
+   CatID + a mono "Shown" tag with a dot. */
+.ucs-alt.is-selected,
+.ucs-alt.is-selected:hover {
+  border-left-color: var(--ucs-accent);
+  background: var(--ucs-row-sel);
+}
+
+.ucs-alt-rank {
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+}
+
+.ucs-alt-catid {
+  color: var(--ucs-text);
+  font-family: var(--ucs-font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+}
+
+.ucs-alt.is-selected .ucs-alt-rank,
+.ucs-alt.is-selected .ucs-alt-catid {
+  color: var(--ucs-accent);
+}
+
+.ucs-alt-path {
+  grid-column: 2 / 4;
+  padding-right: 60px;
+  color: var(--ucs-muted);
+  font-size: 14px;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.ucs-alt-path b {
+  color: var(--ucs-text-3);
+  font-weight: inherit;
+}
+
+.ucs-alt-shown {
+  display: flex;
+  grid-column: 3;
+  grid-row: 1;
+  align-items: center;
+  align-self: center;
+  justify-self: end;
+  gap: 6px;
+  color: var(--ucs-accent);
+  font-family: var(--ucs-font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: var(--ucs-track-label);
+  text-transform: uppercase;
+}
+
+.ucs-alt-shown::before {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+.ucs-aside-foot {
+  margin: 0;
+  padding: 14px clamp(18px, 2vw, 22px) clamp(20px, 2.4vw, 26px);
+  color: var(--ucs-muted);
+  font-size: 13px;
+  text-wrap: pretty;
+}
+
+.ucs-aside-block {
+  border-top: 1px solid var(--ucs-line-soft);
+  padding: 20px clamp(18px, 2vw, 22px) clamp(20px, 2.4vw, 26px);
+}
+
+.ucs-aside-block p {
+  margin: 0;
+  color: var(--ucs-muted);
+  font-size: 15px;
+  text-wrap: pretty;
+}
+
+/* --- Footer: fine print, not a second content section -------------------- */
+
+.ucs-footer {
+  margin-top: clamp(34px, 4.6vw, 60px);
+  border-top: 1px solid var(--ucs-line);
+}
+
+.ucs-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px 40px;
+  padding: 20px var(--ucs-gutter) 28px;
+}
+
+.ucs-footer-left {
+  max-width: 56ch;
+}
+
+.ucs-footer-left p {
+  margin: 0;
+  color: var(--ucs-muted);
+  font-size: 13px;
+  text-wrap: pretty;
+}
+
+.ucs-footer-left p:first-child {
+  margin-bottom: 4px;
+}
+
+.ucs-footer-right {
+  margin: 0;
+  color: var(--ucs-muted);
+  font-family: var(--ucs-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+/* --- Skeletons -----------------------------------------------------------
+   Built from the REAL row markup — same grid, padding, font sizes and
+   line-heights, with shimmer spans standing in for text — so the box is
+   identical by construction at every width, not by guessed pixel heights.
+   ------------------------------------------------------------------------ */
+
+@keyframes ucs-shimmer {
+  0% {
+    background-position: -460px 0;
+  }
+  100% {
+    background-position: 460px 0;
   }
 }
 
-.fine-print {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 28px;
-  margin-top: 18px;
-  color: var(--faint);
+@keyframes ucs-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.ucs-sk {
+  display: inline-block;
+  border-radius: var(--ucs-radius-sm);
+  background: linear-gradient(90deg, #1c1b19 0%, #272520 50%, #1c1b19 100%);
+  background-size: 460px 100%;
+  vertical-align: middle;
+  animation: ucs-shimmer 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ucs-sk {
+    background: #201e1b;
+    animation: ucs-pulse 1.8s ease-in-out infinite;
+  }
+}
+
+.ucs-sk-lead {
+  margin: 0 0 clamp(14px, 1.6vw, 18px);
   font-size: 11px;
   line-height: 1.55;
 }
 
-.fine-print p {
-  max-width: 700px;
-  margin: 0;
+.ucs-sk-catid {
+  font-size: var(--ucs-size-catid);
+  line-height: 1;
 }
 
-.fine-print .local-note {
-  flex: none;
-  font-family: var(--mono);
-  letter-spacing: 0.04em;
+.ucs-sk-copy {
+  display: block;
+  width: 138px;
+  height: 44px;
+  border-radius: var(--ucs-radius);
 }
 
-@media (max-width: 780px) {
-  .shell {
-    width: min(100% - 24px, 1160px);
-    padding-top: 16px;
-  }
+.ucs-sk-path {
+  margin: 0 0 clamp(18px, 2.2vw, 24px);
+  font-size: var(--ucs-size-path);
+  line-height: 1.2;
+}
 
-  .topbar {
-    margin-bottom: 50px;
-  }
+.ucs-sk-why {
+  margin: 0 0 12px;
+  font-size: 10px;
+  line-height: 1.55;
+}
 
-  .catalog-state {
-    max-width: 150px;
-    justify-content: flex-end;
-    text-align: right;
-  }
+.ucs-sk-note {
+  max-width: 56ch;
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
 
-  .query-panel {
-    padding: 18px;
-  }
+.ucs-reason.is-skeleton {
+  border-left-color: var(--ucs-line);
+}
 
-  .query-box textarea {
-    min-height: 166px;
-    padding: 16px 16px 68px;
-  }
+.ucs-alt.is-skeleton {
+  border-left-color: transparent;
+  cursor: default;
+}
 
-  .results,
-  .skeleton-results {
+/* --- One column switch, and nothing else --------------------------------- */
+
+@media (max-width: 900px) {
+  .ucs-work {
     grid-template-columns: 1fr;
   }
 
-  .primary-result,
-  .skeleton-main {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+  .ucs-aside {
+    border-top: 1px solid var(--ucs-line);
+    border-left: 0;
   }
 
-  .primary-result {
-    padding: 25px 21px 28px;
-  }
-
-  .alternates {
-    padding: 25px 17px 20px;
-  }
-
-  .fine-print {
-    display: block;
-  }
-
-  .local-note {
-    margin-top: 8px;
-  }
-}
-
-@media (max-width: 500px) {
-  .shortcut {
-    display: none;
-  }
-
-  .find-button {
-    right: 10px;
-    bottom: 10px;
-  }
-
-  .hero-copy {
-    font-size: 17px;
+  .ucs-privacy {
+    margin-left: 0;
   }
 }
