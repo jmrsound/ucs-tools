@@ -28,7 +28,7 @@ entirely against it.
 
 ## Try the category finder
 
-**[Open UCS Category Finder](https://ucs-category-finder.openai.site)**
+**[Open UCS Category Finder](https://ucs-category-finder.nrohgnol67.chatgpt.site)**
 
 Describe a sound in ordinary language and it returns a short set of likely UCS
 homes, with the public-list terms that caused each match. It loads all 753
