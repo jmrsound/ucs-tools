@@ -26,9 +26,9 @@ for example `GUNAuto_Uzi Bursts_TN_DORY.wav`, where `GUNAuto` is the CatID for
 GUNS / AUTOMATIC. `ucs-tools` bundles the official **UCS v8.2.1** list and works
 entirely against it.
 
-## Try the category finder
+## Try UCS Tagger
 
-**[Open UCS Category Finder](https://ucs-category-finder.nrohgnol67.chatgpt.site)**
+**[Open UCS Tagger](https://murphyryan.com/ucs-tagger/)**
 
 Describe a sound in ordinary language and it returns a short set of likely UCS
 homes, with the public-list terms that caused each match. It loads all 753

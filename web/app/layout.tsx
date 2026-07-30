@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "UCS Category Finder",
+  title: "UCS Tagger",
   description:
     "Describe a sound in plain language and find likely Universal Category System categories.",
-  metadataBase: new URL("https://ucs-category-finder.nrohgnol67.chatgpt.site"),
+  metadataBase: new URL("https://murphyryan.com/ucs-tagger/"),
   openGraph: {
-    title: "UCS Category Finder",
+    title: "UCS Tagger",
     description: "Describe a sound. Find its UCS home.",
     type: "website",
     images: [
@@ -15,13 +15,13 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1734,
         height: 907,
-        alt: "UCS Category Finder — Describe a sound. Find its UCS home.",
+        alt: "UCS Tagger — Describe a sound. Find its UCS home.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "UCS Category Finder",
+    title: "UCS Tagger",
     description: "Describe a sound. Find its UCS home.",
     images: ["/og.png"],
   },

@@ -5,7 +5,7 @@ import { matchUcs, parseUcsCsv, type UcsCategory, type UcsMatch } from "./ucs";
 
 const STARTER_QUERY = "A crowd applauding in a theater";
 const EXAMPLES = [
-  "A heavy metal prison door slams shut",
+  "A heavy metal security door slams shut",
   "A crowd applauding in a theater",
   "A small dog panting and whining",
   "A sci-fi machine powering down",
@@ -22,7 +22,7 @@ export function CategoryFinder() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/ucs_v8.2.1.csv")
+    fetch(new URL("ucs_v8.2.1.csv", document.baseURI))
       .then((response) => {
         if (!response.ok) throw new Error(`Catalog request failed: ${response.status}`);
         return response.text();
@@ -79,11 +79,11 @@ export function CategoryFinder() {
   return (
     <main className="shell">
       <header className="topbar">
-        <div className="brand" aria-label="ucs-tools">
+        <div className="brand" aria-label="UCS Tagger">
           <span className="brand-mark" aria-hidden="true">
             ⌁
           </span>
-          <span>ucs-tools</span>
+          <span>ucs-tagger</span>
         </div>
         <div className="catalog-state">
           <span className="state-dot" aria-hidden="true" />
@@ -94,7 +94,7 @@ export function CategoryFinder() {
       </header>
 
       <section className="hero">
-        <p className="eyebrow">UCS category finder</p>
+        <p className="eyebrow">UCS tagger</p>
         <h1>Describe a sound. Find its UCS home.</h1>
         <p className="hero-copy">
           Write what you hear in ordinary language. The finder checks the public UCS list
@@ -102,7 +102,7 @@ export function CategoryFinder() {
         </p>
       </section>
 
-      <section className="finder" aria-label="UCS category finder">
+      <section className="finder" aria-label="UCS tagger">
         <div className="query-panel">
           <div className="query-label-row">
             <label className="query-label" htmlFor="sound-description">

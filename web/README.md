@@ -1,4 +1,4 @@
-# UCS Category Finder
+# UCS Tagger
 
 The standalone browser surface for `ucs-tools`.
 
@@ -28,7 +28,12 @@ npm run dev
 npm test
 npm run lint
 npm run build
+npm run build:standalone
 ```
 
 The matcher tests read the Python package's canonical CSV so the web copy cannot
 quietly drift from the bundled catalog.
+
+`build:standalone` produces a static, subpath-safe bundle in
+`standalone-dist/`. That is the artifact served at
+`https://murphyryan.com/ucs-tagger/`.
