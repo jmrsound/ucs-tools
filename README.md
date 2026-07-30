@@ -2,11 +2,11 @@
 
 # ucs-tools
 
-A small, format-only command-line toolkit and Python library for the
+A small standalone toolkit for the
 [Universal Category System (UCS)](https://universalcategorysystem.com), the
-public standard for naming sound-effects files. Parse a UCS filename into its
-parts, compose a compliant one, validate a whole library, look up any CatID, and
-batch-rename safely.
+public standard for naming sound-effects files. Describe a sound in the browser
+to find likely categories, or use the exact command-line and Python tools to
+parse, compose, validate, look up, and safely rename UCS filenames.
 
 One piece of an open toolkit for post-production audio, built by a working
 post-audio editor (J Murphy Ryan) who got tired of doing this by hand.
@@ -25,6 +25,18 @@ CatID_FXName_CreatorID_SourceID
 for example `GUNAuto_Uzi Bursts_TN_DORY.wav`, where `GUNAuto` is the CatID for
 GUNS / AUTOMATIC. `ucs-tools` bundles the official **UCS v8.2.1** list and works
 entirely against it.
+
+## Try the category finder
+
+**[Open UCS Category Finder](https://ucs-category-finder.openai.site)**
+
+Describe a sound in ordinary language and it returns a short set of likely UCS
+homes, with the public-list terms that caused each match. It loads all 753
+subcategories into the browser and runs there: no account, upload, model, or
+server-side classifier.
+
+The finder suggests starting points rather than making an official
+classification. The result stays inspectable, and the editor keeps the call.
 
 ## Install
 
@@ -118,6 +130,21 @@ cat.is_valid("GUNAuto")             # True
 cat.get("GUNAuto").category_full    # "GUNS-AUTOMATIC"
 ```
 
+## Browser app
+
+The category finder lives in [`web/`](web/) and is intentionally separate from
+the Python package:
+
+```bash
+cd web
+npm install
+npm test
+npm run dev
+```
+
+It uses only the bundled public UCS v8.2.1 columns: Category, SubCategory, CatID,
+CatShort, Explanations, and Synonyms.
+
 ## Example session
 
 <!-- DEMO:START -->
@@ -173,13 +200,15 @@ undo manifest: ./sfx/ucs-rename-undo.json
 ```
 <!-- DEMO:END -->
 
-## Scope: format only
+## Scope
 
-`ucs-tools` understands the UCS **format**. It parses, validates, composes, and
-renames using exact string and structural rules against the official list. It
-deliberately does not guess a category from the sound itself: no fuzzy matching,
-no synonym-to-CatID resolution, no "best guess" tagging of an untagged file. If
-an operation would require inferring meaning, it is out of scope here.
+The CLI and Python library remain **format-only**: exact string and structural
+operations against the official list. They do not guess or assign categories.
+
+The optional browser finder is a separate, explainable text lookup over the
+public category names, explanations, and synonyms. It suggests several
+candidates from a written description; it does not inspect audio, silently tag
+files, learn from users, or depend on a hosted model.
 
 ## Safety
 

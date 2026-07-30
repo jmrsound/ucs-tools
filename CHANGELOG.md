@@ -3,6 +3,16 @@
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Standalone UCS Category Finder browser app: plain-language descriptions to a
+  short list of likely UCS v8.2.1 categories, with visible match reasons and
+  alternate candidates.
+- Fully local browser execution against the bundled public UCS list; no account,
+  upload, model, or server-side classifier.
+- Responsive, keyboard-accessible demo UI and representative matcher tests.
+
 ## [0.1.0] - 2026-07-06
 
 ### Added

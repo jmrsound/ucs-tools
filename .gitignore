@@ -6,11 +6,19 @@ build/
 dist/
 .venv/
 venv/
+!web/build/
+!web/build/sites-vite-plugin.ts
 
 # Tooling
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+
+# Browser app
+web/node_modules/
+web/.next/
+web/dist/
+web/.wrangler/
 
 # OS / editor
 .DS_Store
